@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  creationTimestamp: null
+  name: db-job
+spec:
+  template:
+    metadata:
+      creationTimestamp: null
+    spec:
+      containers:
+      - command:
+        - /bin/bash
+        - -c
+        - |
+          mysql -u root -pmy_p@ss123 -h db-service -P 8000 <<EOF
+          CREATE DATABASE IF NOT EXISTS DEPI;
+          USE DEPI;
+          CREATE TABLE IF NOT EXISTS test (
+              id INT AUTO_INCREMENT PRIMARY KEY,
+              name VARCHAR(50)
+          );
+          EOF
+        image: mysql:lts
+        name: db-job
+        resources: {}
+      restartPolicy: Never
+status: {}
