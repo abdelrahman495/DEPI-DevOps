@@ -1,0 +1,1164 @@
+Started by user Abdelrahman Ali
+Obtained Jenkinsfile from git https://github.com/abdelrahman495/Prometheus-Node-Exporter
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/terraform-pipeline
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-credentials
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/terraform-pipeline/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/abdelrahman495/Prometheus-Node-Exporter # timeout=10
+Fetching upstream changes from https://github.com/abdelrahman495/Prometheus-Node-Exporter
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.0'
+using GIT_ASKPASS to set credentials GitHub Credentials
+ > git fetch --tags --force --progress -- https://github.com/abdelrahman495/Prometheus-Node-Exporter +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision da669277349c2814a65c86bdb68310c24b6ad148 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f da669277349c2814a65c86bdb68310c24b6ad148 # timeout=10
+Commit message: "Initial commit"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $ANSIBLE_PRIVATE_KEY_FILE or $ANSIBLE_PRIVATE_KEY_FILE_PSW or $AWS_ACCESS_KEY_ID or $AWS_SECRET_ACCESS_KEY
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Terraform Init)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ terraform init
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+[0m[1mInitializing provider plugins...[0m
+- Reusing previous version of hashicorp/null from the dependency lock file
+- Reusing previous version of hashicorp/aws from the dependency lock file
+- Using previously-installed hashicorp/null v3.2.3
+- Using previously-installed hashicorp/aws v5.80.0
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Terraform Plan)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ terraform plan
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.aws_ec2.aws_instance.web[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_instance" "web" {
+      [32m+[0m[0m ami                                  = "ami-0866a3c8686eaeeba"
+      [32m+[0m[0m arn                                  = (known after apply)
+      [32m+[0m[0m associate_public_ip_address          = (known after apply)
+      [32m+[0m[0m availability_zone                    = (known after apply)
+      [32m+[0m[0m cpu_core_count                       = (known after apply)
+      [32m+[0m[0m cpu_threads_per_core                 = (known after apply)
+      [32m+[0m[0m disable_api_stop                     = (known after apply)
+      [32m+[0m[0m disable_api_termination              = (known after apply)
+      [32m+[0m[0m ebs_optimized                        = (known after apply)
+      [32m+[0m[0m get_password_data                    = false
+      [32m+[0m[0m host_id                              = (known after apply)
+      [32m+[0m[0m host_resource_group_arn              = (known after apply)
+      [32m+[0m[0m iam_instance_profile                 = (known after apply)
+      [32m+[0m[0m id                                   = (known after apply)
+      [32m+[0m[0m instance_initiated_shutdown_behavior = (known after apply)
+      [32m+[0m[0m instance_lifecycle                   = (known after apply)
+      [32m+[0m[0m instance_state                       = (known after apply)
+      [32m+[0m[0m instance_type                        = "t2.micro"
+      [32m+[0m[0m ipv6_address_count                   = (known after apply)
+      [32m+[0m[0m ipv6_addresses                       = (known after apply)
+      [32m+[0m[0m key_name                             = "Ansible Key"
+      [32m+[0m[0m monitoring                           = (known after apply)
+      [32m+[0m[0m outpost_arn                          = (known after apply)
+      [32m+[0m[0m password_data                        = (known after apply)
+      [32m+[0m[0m placement_group                      = (known after apply)
+      [32m+[0m[0m placement_partition_number           = (known after apply)
+      [32m+[0m[0m primary_network_interface_id         = (known after apply)
+      [32m+[0m[0m private_dns                          = (known after apply)
+      [32m+[0m[0m private_ip                           = (known after apply)
+      [32m+[0m[0m public_dns                           = (known after apply)
+      [32m+[0m[0m public_ip                            = (known after apply)
+      [32m+[0m[0m secondary_private_ips                = (known after apply)
+      [32m+[0m[0m security_groups                      = (known after apply)
+      [32m+[0m[0m source_dest_check                    = true
+      [32m+[0m[0m spot_instance_request_id             = (known after apply)
+      [32m+[0m[0m subnet_id                            = (known after apply)
+      [32m+[0m[0m tags                                 = {
+          [32m+[0m[0m "Environment" = "Development"
+          [32m+[0m[0m "Name"        = "My Web Server 1"
+          [32m+[0m[0m "Role"        = "Web Server"
+          [32m+[0m[0m "Service"     = "Apache2"
+          [32m+[0m[0m "Team"        = "DevOps"
+        }
+      [32m+[0m[0m tags_all                             = {
+          [32m+[0m[0m "Environment" = "Development"
+          [32m+[0m[0m "Name"        = "My Web Server 1"
+          [32m+[0m[0m "Role"        = "Web Server"
+          [32m+[0m[0m "Service"     = "Apache2"
+          [32m+[0m[0m "Team"        = "DevOps"
+        }
+      [32m+[0m[0m tenancy                              = (known after apply)
+      [32m+[0m[0m user_data                            = (known after apply)
+      [32m+[0m[0m user_data_base64                     = (known after apply)
+      [32m+[0m[0m user_data_replace_on_change          = false
+      [32m+[0m[0m vpc_security_group_ids               = (known after apply)
+
+      [32m+[0m[0m capacity_reservation_specification (known after apply)
+
+      [32m+[0m[0m cpu_options (known after apply)
+
+      [32m+[0m[0m ebs_block_device (known after apply)
+
+      [32m+[0m[0m enclave_options (known after apply)
+
+      [32m+[0m[0m ephemeral_block_device (known after apply)
+
+      [32m+[0m[0m instance_market_options (known after apply)
+
+      [32m+[0m[0m maintenance_options (known after apply)
+
+      [32m+[0m[0m metadata_options (known after apply)
+
+      [32m+[0m[0m network_interface (known after apply)
+
+      [32m+[0m[0m private_dns_name_options (known after apply)
+
+      [32m+[0m[0m root_block_device (known after apply)
+    }
+
+[1m  # module.aws_ec2.aws_instance.web[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_instance" "web" {
+      [32m+[0m[0m ami                                  = "ami-0866a3c8686eaeeba"
+      [32m+[0m[0m arn                                  = (known after apply)
+      [32m+[0m[0m associate_public_ip_address          = (known after apply)
+      [32m+[0m[0m availability_zone                    = (known after apply)
+      [32m+[0m[0m cpu_core_count                       = (known after apply)
+      [32m+[0m[0m cpu_threads_per_core                 = (known after apply)
+      [32m+[0m[0m disable_api_stop                     = (known after apply)
+      [32m+[0m[0m disable_api_termination              = (known after apply)
+      [32m+[0m[0m ebs_optimized                        = (known after apply)
+      [32m+[0m[0m get_password_data                    = false
+      [32m+[0m[0m host_id                              = (known after apply)
+      [32m+[0m[0m host_resource_group_arn              = (known after apply)
+      [32m+[0m[0m iam_instance_profile                 = (known after apply)
+      [32m+[0m[0m id                                   = (known after apply)
+      [32m+[0m[0m instance_initiated_shutdown_behavior = (known after apply)
+      [32m+[0m[0m instance_lifecycle                   = (known after apply)
+      [32m+[0m[0m instance_state                       = (known after apply)
+      [32m+[0m[0m instance_type                        = "t2.micro"
+      [32m+[0m[0m ipv6_address_count                   = (known after apply)
+      [32m+[0m[0m ipv6_addresses                       = (known after apply)
+      [32m+[0m[0m key_name                             = "Ansible Key"
+      [32m+[0m[0m monitoring                           = (known after apply)
+      [32m+[0m[0m outpost_arn                          = (known after apply)
+      [32m+[0m[0m password_data                        = (known after apply)
+      [32m+[0m[0m placement_group                      = (known after apply)
+      [32m+[0m[0m placement_partition_number           = (known after apply)
+      [32m+[0m[0m primary_network_interface_id         = (known after apply)
+      [32m+[0m[0m private_dns                          = (known after apply)
+      [32m+[0m[0m private_ip                           = (known after apply)
+      [32m+[0m[0m public_dns                           = (known after apply)
+      [32m+[0m[0m public_ip                            = (known after apply)
+      [32m+[0m[0m secondary_private_ips                = (known after apply)
+      [32m+[0m[0m security_groups                      = (known after apply)
+      [32m+[0m[0m source_dest_check                    = true
+      [32m+[0m[0m spot_instance_request_id             = (known after apply)
+      [32m+[0m[0m subnet_id                            = (known after apply)
+      [32m+[0m[0m tags                                 = {
+          [32m+[0m[0m "Environment" = "Development"
+          [32m+[0m[0m "Name"        = "My Web Server 2"
+          [32m+[0m[0m "Role"        = "Web Server"
+          [32m+[0m[0m "Service"     = "Apache2"
+          [32m+[0m[0m "Team"        = "DevOps"
+        }
+      [32m+[0m[0m tags_all                             = {
+          [32m+[0m[0m "Environment" = "Development"
+          [32m+[0m[0m "Name"        = "My Web Server 2"
+          [32m+[0m[0m "Role"        = "Web Server"
+          [32m+[0m[0m "Service"     = "Apache2"
+          [32m+[0m[0m "Team"        = "DevOps"
+        }
+      [32m+[0m[0m tenancy                              = (known after apply)
+      [32m+[0m[0m user_data                            = (known after apply)
+      [32m+[0m[0m user_data_base64                     = (known after apply)
+      [32m+[0m[0m user_data_replace_on_change          = false
+      [32m+[0m[0m vpc_security_group_ids               = (known after apply)
+
+      [32m+[0m[0m capacity_reservation_specification (known after apply)
+
+      [32m+[0m[0m cpu_options (known after apply)
+
+      [32m+[0m[0m ebs_block_device (known after apply)
+
+      [32m+[0m[0m enclave_options (known after apply)
+
+      [32m+[0m[0m ephemeral_block_device (known after apply)
+
+      [32m+[0m[0m instance_market_options (known after apply)
+
+      [32m+[0m[0m maintenance_options (known after apply)
+
+      [32m+[0m[0m metadata_options (known after apply)
+
+      [32m+[0m[0m network_interface (known after apply)
+
+      [32m+[0m[0m private_dns_name_options (known after apply)
+
+      [32m+[0m[0m root_block_device (known after apply)
+    }
+
+[1m  # module.aws_ec2.aws_key_pair.deployer[0m will be created
+[0m  [32m+[0m[0m resource "aws_key_pair" "deployer" {
+      [32m+[0m[0m arn             = (known after apply)
+      [32m+[0m[0m fingerprint     = (known after apply)
+      [32m+[0m[0m id              = (known after apply)
+      [32m+[0m[0m key_name        = "Ansible Key"
+      [32m+[0m[0m key_name_prefix = (known after apply)
+      [32m+[0m[0m key_pair_id     = (known after apply)
+      [32m+[0m[0m key_type        = (known after apply)
+      [32m+[0m[0m public_key      = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINw0c5Ss6VEzEqZSw52TMim7g6ATBn6+JsME8UQbnZqq Ansible Key"
+      [32m+[0m[0m tags_all        = (known after apply)
+    }
+
+[1m  # module.aws_ec2.aws_security_group.web_sg[0m will be created
+[0m  [32m+[0m[0m resource "aws_security_group" "web_sg" {
+      [32m+[0m[0m arn                    = (known after apply)
+      [32m+[0m[0m description            = "Managed by Terraform"
+      [32m+[0m[0m egress                 = [
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m from_port        = 0
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "-1"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 0
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+        ]
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m ingress                = [
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m from_port        = 22
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "tcp"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 22
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m from_port        = 80
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "tcp"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 80
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = []
+              [32m+[0m[0m from_port        = 9100
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "tcp"
+              [32m+[0m[0m security_groups  = (known after apply)
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 9100
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+        ]
+      [32m+[0m[0m name                   = (known after apply)
+      [32m+[0m[0m name_prefix            = (known after apply)
+      [32m+[0m[0m owner_id               = (known after apply)
+      [32m+[0m[0m revoke_rules_on_delete = false
+      [32m+[0m[0m tags                   = {
+          [32m+[0m[0m "Name" = "Web SG"
+        }
+      [32m+[0m[0m tags_all               = {
+          [32m+[0m[0m "Name" = "Web SG"
+        }
+      [32m+[0m[0m vpc_id                 = (known after apply)
+    }
+
+[1m  # module.aws_ec2.null_resource.ansible_playbook[0m will be created
+[0m  [32m+[0m[0m resource "null_resource" "ansible_playbook" {
+      [32m+[0m[0m id       = (known after apply)
+      [32m+[0m[0m triggers = {
+          [32m+[0m[0m "web_instance_ids" = (known after apply)
+        }
+    }
+
+[1m  # module.prometheus.aws_iam_instance_profile.prometheus_profile[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_instance_profile" "prometheus_profile" {
+      [32m+[0m[0m arn         = (known after apply)
+      [32m+[0m[0m create_date = (known after apply)
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m name        = "prometheus_profile"
+      [32m+[0m[0m name_prefix = (known after apply)
+      [32m+[0m[0m path        = "/"
+      [32m+[0m[0m role        = "prometheus_role"
+      [32m+[0m[0m tags_all    = (known after apply)
+      [32m+[0m[0m unique_id   = (known after apply)
+    }
+
+[1m  # module.prometheus.aws_iam_role.prometheus_role[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_role" "prometheus_role" {
+      [32m+[0m[0m arn                   = (known after apply)
+      [32m+[0m[0m assume_role_policy    = jsonencode(
+            {
+              [32m+[0m[0m Statement = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m Action    = "sts:AssumeRole"
+                      [32m+[0m[0m Effect    = "Allow"
+                      [32m+[0m[0m Principal = {
+                          [32m+[0m[0m Service = "ec2.amazonaws.com"
+                        }
+                      [32m+[0m[0m Sid       = ""
+                    },
+                ]
+              [32m+[0m[0m Version   = "2012-10-17"
+            }
+        )
+      [32m+[0m[0m create_date           = (known after apply)
+      [32m+[0m[0m force_detach_policies = false
+      [32m+[0m[0m id                    = (known after apply)
+      [32m+[0m[0m managed_policy_arns   = (known after apply)
+      [32m+[0m[0m max_session_duration  = 3600
+      [32m+[0m[0m name                  = "prometheus_role"
+      [32m+[0m[0m name_prefix           = (known after apply)
+      [32m+[0m[0m path                  = "/"
+      [32m+[0m[0m tags_all              = (known after apply)
+      [32m+[0m[0m unique_id             = (known after apply)
+
+      [32m+[0m[0m inline_policy (known after apply)
+    }
+
+[1m  # module.prometheus.aws_iam_role_policy.prometheus_policy[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_role_policy" "prometheus_policy" {
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m name        = "prometheus_policy"
+      [32m+[0m[0m name_prefix = (known after apply)
+      [32m+[0m[0m policy      = jsonencode(
+            {
+              [32m+[0m[0m Statement = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m Action   = [
+                          [32m+[0m[0m "ec2:DescribeInstances",
+                          [32m+[0m[0m "ec2:DescribeTags",
+                        ]
+                      [32m+[0m[0m Effect   = "Allow"
+                      [32m+[0m[0m Resource = "*"
+                    },
+                ]
+              [32m+[0m[0m Version   = "2012-10-17"
+            }
+        )
+      [32m+[0m[0m role        = (known after apply)
+    }
+
+[1m  # module.prometheus.aws_instance.prometheus[0m will be created
+[0m  [32m+[0m[0m resource "aws_instance" "prometheus" {
+      [32m+[0m[0m ami                                  = "ami-0866a3c8686eaeeba"
+      [32m+[0m[0m arn                                  = (known after apply)
+      [32m+[0m[0m associate_public_ip_address          = (known after apply)
+      [32m+[0m[0m availability_zone                    = (known after apply)
+      [32m+[0m[0m cpu_core_count                       = (known after apply)
+      [32m+[0m[0m cpu_threads_per_core                 = (known after apply)
+      [32m+[0m[0m disable_api_stop                     = (known after apply)
+      [32m+[0m[0m disable_api_termination              = (known after apply)
+      [32m+[0m[0m ebs_optimized                        = (known after apply)
+      [32m+[0m[0m get_password_data                    = false
+      [32m+[0m[0m host_id                              = (known after apply)
+      [32m+[0m[0m host_resource_group_arn              = (known after apply)
+      [32m+[0m[0m iam_instance_profile                 = "prometheus_profile"
+      [32m+[0m[0m id                                   = (known after apply)
+      [32m+[0m[0m instance_initiated_shutdown_behavior = (known after apply)
+      [32m+[0m[0m instance_lifecycle                   = (known after apply)
+      [32m+[0m[0m instance_state                       = (known after apply)
+      [32m+[0m[0m instance_type                        = "t2.micro"
+      [32m+[0m[0m ipv6_address_count                   = (known after apply)
+      [32m+[0m[0m ipv6_addresses                       = (known after apply)
+      [32m+[0m[0m key_name                             = "Ansible Key"
+      [32m+[0m[0m monitoring                           = (known after apply)
+      [32m+[0m[0m outpost_arn                          = (known after apply)
+      [32m+[0m[0m password_data                        = (known after apply)
+      [32m+[0m[0m placement_group                      = (known after apply)
+      [32m+[0m[0m placement_partition_number           = (known after apply)
+      [32m+[0m[0m primary_network_interface_id         = (known after apply)
+      [32m+[0m[0m private_dns                          = (known after apply)
+      [32m+[0m[0m private_ip                           = (known after apply)
+      [32m+[0m[0m public_dns                           = (known after apply)
+      [32m+[0m[0m public_ip                            = (known after apply)
+      [32m+[0m[0m secondary_private_ips                = (known after apply)
+      [32m+[0m[0m security_groups                      = (known after apply)
+      [32m+[0m[0m source_dest_check                    = true
+      [32m+[0m[0m spot_instance_request_id             = (known after apply)
+      [32m+[0m[0m subnet_id                            = (known after apply)
+      [32m+[0m[0m tags                                 = {
+          [32m+[0m[0m "Environment" = "Development"
+          [32m+[0m[0m "Name"        = "My Prometheus Server"
+          [32m+[0m[0m "Role"        = "Prometheus Server"
+          [32m+[0m[0m "Service"     = "Prometheus"
+          [32m+[0m[0m "Team"        = "DevOps"
+        }
+      [32m+[0m[0m tags_all                             = {
+          [32m+[0m[0m "Environment" = "Development"
+          [32m+[0m[0m "Name"        = "My Prometheus Server"
+          [32m+[0m[0m "Role"        = "Prometheus Server"
+          [32m+[0m[0m "Service"     = "Prometheus"
+          [32m+[0m[0m "Team"        = "DevOps"
+        }
+      [32m+[0m[0m tenancy                              = (known after apply)
+      [32m+[0m[0m user_data                            = "8ea3b20ecf6c07e5ec72832b54f1b3e43f03d7f1"
+      [32m+[0m[0m user_data_base64                     = (known after apply)
+      [32m+[0m[0m user_data_replace_on_change          = true
+      [32m+[0m[0m vpc_security_group_ids               = (known after apply)
+
+      [32m+[0m[0m capacity_reservation_specification (known after apply)
+
+      [32m+[0m[0m cpu_options (known after apply)
+
+      [32m+[0m[0m ebs_block_device (known after apply)
+
+      [32m+[0m[0m enclave_options (known after apply)
+
+      [32m+[0m[0m ephemeral_block_device (known after apply)
+
+      [32m+[0m[0m instance_market_options (known after apply)
+
+      [32m+[0m[0m maintenance_options (known after apply)
+
+      [32m+[0m[0m metadata_options (known after apply)
+
+      [32m+[0m[0m network_interface (known after apply)
+
+      [32m+[0m[0m private_dns_name_options (known after apply)
+
+      [32m+[0m[0m root_block_device (known after apply)
+    }
+
+[1m  # module.prometheus.aws_security_group.prometheus_sg[0m will be created
+[0m  [32m+[0m[0m resource "aws_security_group" "prometheus_sg" {
+      [32m+[0m[0m arn                    = (known after apply)
+      [32m+[0m[0m description            = "Managed by Terraform"
+      [32m+[0m[0m egress                 = [
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m from_port        = 0
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "-1"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 0
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+        ]
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m ingress                = [
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m from_port        = 22
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "tcp"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 22
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m from_port        = 9090
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "tcp"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 9090
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+        ]
+      [32m+[0m[0m name                   = (known after apply)
+      [32m+[0m[0m name_prefix            = (known after apply)
+      [32m+[0m[0m owner_id               = (known after apply)
+      [32m+[0m[0m revoke_rules_on_delete = false
+      [32m+[0m[0m tags                   = {
+          [32m+[0m[0m "Name" = "Prometheus SG"
+        }
+      [32m+[0m[0m tags_all               = {
+          [32m+[0m[0m "Name" = "Prometheus SG"
+        }
+      [32m+[0m[0m vpc_id                 = (known after apply)
+    }
+
+[1mPlan:[0m 10 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m prometheus_public_ip = (known after apply)
+  [32m+[0m[0m web_public_ips       = [
+      [32m+[0m[0m (known after apply),
+      [32m+[0m[0m (known after apply),
+    ]
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Terraform Apply)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ terraform apply -auto-approve
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.aws_ec2.aws_instance.web[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_instance" "web" {
+      [32m+[0m[0m ami                                  = "ami-0866a3c8686eaeeba"
+      [32m+[0m[0m arn                                  = (known after apply)
+      [32m+[0m[0m associate_public_ip_address          = (known after apply)
+      [32m+[0m[0m availability_zone                    = (known after apply)
+      [32m+[0m[0m cpu_core_count                       = (known after apply)
+      [32m+[0m[0m cpu_threads_per_core                 = (known after apply)
+      [32m+[0m[0m disable_api_stop                     = (known after apply)
+      [32m+[0m[0m disable_api_termination              = (known after apply)
+      [32m+[0m[0m ebs_optimized                        = (known after apply)
+      [32m+[0m[0m get_password_data                    = false
+      [32m+[0m[0m host_id                              = (known after apply)
+      [32m+[0m[0m host_resource_group_arn              = (known after apply)
+      [32m+[0m[0m iam_instance_profile                 = (known after apply)
+      [32m+[0m[0m id                                   = (known after apply)
+      [32m+[0m[0m instance_initiated_shutdown_behavior = (known after apply)
+      [32m+[0m[0m instance_lifecycle                   = (known after apply)
+      [32m+[0m[0m instance_state                       = (known after apply)
+      [32m+[0m[0m instance_type                        = "t2.micro"
+      [32m+[0m[0m ipv6_address_count                   = (known after apply)
+      [32m+[0m[0m ipv6_addresses                       = (known after apply)
+      [32m+[0m[0m key_name                             = "Ansible Key"
+      [32m+[0m[0m monitoring                           = (known after apply)
+      [32m+[0m[0m outpost_arn                          = (known after apply)
+      [32m+[0m[0m password_data                        = (known after apply)
+      [32m+[0m[0m placement_group                      = (known after apply)
+      [32m+[0m[0m placement_partition_number           = (known after apply)
+      [32m+[0m[0m primary_network_interface_id         = (known after apply)
+      [32m+[0m[0m private_dns                          = (known after apply)
+      [32m+[0m[0m private_ip                           = (known after apply)
+      [32m+[0m[0m public_dns                           = (known after apply)
+      [32m+[0m[0m public_ip                            = (known after apply)
+      [32m+[0m[0m secondary_private_ips                = (known after apply)
+      [32m+[0m[0m security_groups                      = (known after apply)
+      [32m+[0m[0m source_dest_check                    = true
+      [32m+[0m[0m spot_instance_request_id             = (known after apply)
+      [32m+[0m[0m subnet_id                            = (known after apply)
+      [32m+[0m[0m tags                                 = {
+          [32m+[0m[0m "Environment" = "Development"
+          [32m+[0m[0m "Name"        = "My Web Server 1"
+          [32m+[0m[0m "Role"        = "Web Server"
+          [32m+[0m[0m "Service"     = "Apache2"
+          [32m+[0m[0m "Team"        = "DevOps"
+        }
+      [32m+[0m[0m tags_all                             = {
+          [32m+[0m[0m "Environment" = "Development"
+          [32m+[0m[0m "Name"        = "My Web Server 1"
+          [32m+[0m[0m "Role"        = "Web Server"
+          [32m+[0m[0m "Service"     = "Apache2"
+          [32m+[0m[0m "Team"        = "DevOps"
+        }
+      [32m+[0m[0m tenancy                              = (known after apply)
+      [32m+[0m[0m user_data                            = (known after apply)
+      [32m+[0m[0m user_data_base64                     = (known after apply)
+      [32m+[0m[0m user_data_replace_on_change          = false
+      [32m+[0m[0m vpc_security_group_ids               = (known after apply)
+
+      [32m+[0m[0m capacity_reservation_specification (known after apply)
+
+      [32m+[0m[0m cpu_options (known after apply)
+
+      [32m+[0m[0m ebs_block_device (known after apply)
+
+      [32m+[0m[0m enclave_options (known after apply)
+
+      [32m+[0m[0m ephemeral_block_device (known after apply)
+
+      [32m+[0m[0m instance_market_options (known after apply)
+
+      [32m+[0m[0m maintenance_options (known after apply)
+
+      [32m+[0m[0m metadata_options (known after apply)
+
+      [32m+[0m[0m network_interface (known after apply)
+
+      [32m+[0m[0m private_dns_name_options (known after apply)
+
+      [32m+[0m[0m root_block_device (known after apply)
+    }
+
+[1m  # module.aws_ec2.aws_instance.web[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_instance" "web" {
+      [32m+[0m[0m ami                                  = "ami-0866a3c8686eaeeba"
+      [32m+[0m[0m arn                                  = (known after apply)
+      [32m+[0m[0m associate_public_ip_address          = (known after apply)
+      [32m+[0m[0m availability_zone                    = (known after apply)
+      [32m+[0m[0m cpu_core_count                       = (known after apply)
+      [32m+[0m[0m cpu_threads_per_core                 = (known after apply)
+      [32m+[0m[0m disable_api_stop                     = (known after apply)
+      [32m+[0m[0m disable_api_termination              = (known after apply)
+      [32m+[0m[0m ebs_optimized                        = (known after apply)
+      [32m+[0m[0m get_password_data                    = false
+      [32m+[0m[0m host_id                              = (known after apply)
+      [32m+[0m[0m host_resource_group_arn              = (known after apply)
+      [32m+[0m[0m iam_instance_profile                 = (known after apply)
+      [32m+[0m[0m id                                   = (known after apply)
+      [32m+[0m[0m instance_initiated_shutdown_behavior = (known after apply)
+      [32m+[0m[0m instance_lifecycle                   = (known after apply)
+      [32m+[0m[0m instance_state                       = (known after apply)
+      [32m+[0m[0m instance_type                        = "t2.micro"
+      [32m+[0m[0m ipv6_address_count                   = (known after apply)
+      [32m+[0m[0m ipv6_addresses                       = (known after apply)
+      [32m+[0m[0m key_name                             = "Ansible Key"
+      [32m+[0m[0m monitoring                           = (known after apply)
+      [32m+[0m[0m outpost_arn                          = (known after apply)
+      [32m+[0m[0m password_data                        = (known after apply)
+      [32m+[0m[0m placement_group                      = (known after apply)
+      [32m+[0m[0m placement_partition_number           = (known after apply)
+      [32m+[0m[0m primary_network_interface_id         = (known after apply)
+      [32m+[0m[0m private_dns                          = (known after apply)
+      [32m+[0m[0m private_ip                           = (known after apply)
+      [32m+[0m[0m public_dns                           = (known after apply)
+      [32m+[0m[0m public_ip                            = (known after apply)
+      [32m+[0m[0m secondary_private_ips                = (known after apply)
+      [32m+[0m[0m security_groups                      = (known after apply)
+      [32m+[0m[0m source_dest_check                    = true
+      [32m+[0m[0m spot_instance_request_id             = (known after apply)
+      [32m+[0m[0m subnet_id                            = (known after apply)
+      [32m+[0m[0m tags                                 = {
+          [32m+[0m[0m "Environment" = "Development"
+          [32m+[0m[0m "Name"        = "My Web Server 2"
+          [32m+[0m[0m "Role"        = "Web Server"
+          [32m+[0m[0m "Service"     = "Apache2"
+          [32m+[0m[0m "Team"        = "DevOps"
+        }
+      [32m+[0m[0m tags_all                             = {
+          [32m+[0m[0m "Environment" = "Development"
+          [32m+[0m[0m "Name"        = "My Web Server 2"
+          [32m+[0m[0m "Role"        = "Web Server"
+          [32m+[0m[0m "Service"     = "Apache2"
+          [32m+[0m[0m "Team"        = "DevOps"
+        }
+      [32m+[0m[0m tenancy                              = (known after apply)
+      [32m+[0m[0m user_data                            = (known after apply)
+      [32m+[0m[0m user_data_base64                     = (known after apply)
+      [32m+[0m[0m user_data_replace_on_change          = false
+      [32m+[0m[0m vpc_security_group_ids               = (known after apply)
+
+      [32m+[0m[0m capacity_reservation_specification (known after apply)
+
+      [32m+[0m[0m cpu_options (known after apply)
+
+      [32m+[0m[0m ebs_block_device (known after apply)
+
+      [32m+[0m[0m enclave_options (known after apply)
+
+      [32m+[0m[0m ephemeral_block_device (known after apply)
+
+      [32m+[0m[0m instance_market_options (known after apply)
+
+      [32m+[0m[0m maintenance_options (known after apply)
+
+      [32m+[0m[0m metadata_options (known after apply)
+
+      [32m+[0m[0m network_interface (known after apply)
+
+      [32m+[0m[0m private_dns_name_options (known after apply)
+
+      [32m+[0m[0m root_block_device (known after apply)
+    }
+
+[1m  # module.aws_ec2.aws_key_pair.deployer[0m will be created
+[0m  [32m+[0m[0m resource "aws_key_pair" "deployer" {
+      [32m+[0m[0m arn             = (known after apply)
+      [32m+[0m[0m fingerprint     = (known after apply)
+      [32m+[0m[0m id              = (known after apply)
+      [32m+[0m[0m key_name        = "Ansible Key"
+      [32m+[0m[0m key_name_prefix = (known after apply)
+      [32m+[0m[0m key_pair_id     = (known after apply)
+      [32m+[0m[0m key_type        = (known after apply)
+      [32m+[0m[0m public_key      = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINw0c5Ss6VEzEqZSw52TMim7g6ATBn6+JsME8UQbnZqq Ansible Key"
+      [32m+[0m[0m tags_all        = (known after apply)
+    }
+
+[1m  # module.aws_ec2.aws_security_group.web_sg[0m will be created
+[0m  [32m+[0m[0m resource "aws_security_group" "web_sg" {
+      [32m+[0m[0m arn                    = (known after apply)
+      [32m+[0m[0m description            = "Managed by Terraform"
+      [32m+[0m[0m egress                 = [
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m from_port        = 0
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "-1"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 0
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+        ]
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m ingress                = [
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m from_port        = 22
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "tcp"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 22
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m from_port        = 80
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "tcp"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 80
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = []
+              [32m+[0m[0m from_port        = 9100
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "tcp"
+              [32m+[0m[0m security_groups  = (known after apply)
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 9100
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+        ]
+      [32m+[0m[0m name                   = (known after apply)
+      [32m+[0m[0m name_prefix            = (known after apply)
+      [32m+[0m[0m owner_id               = (known after apply)
+      [32m+[0m[0m revoke_rules_on_delete = false
+      [32m+[0m[0m tags                   = {
+          [32m+[0m[0m "Name" = "Web SG"
+        }
+      [32m+[0m[0m tags_all               = {
+          [32m+[0m[0m "Name" = "Web SG"
+        }
+      [32m+[0m[0m vpc_id                 = (known after apply)
+    }
+
+[1m  # module.aws_ec2.null_resource.ansible_playbook[0m will be created
+[0m  [32m+[0m[0m resource "null_resource" "ansible_playbook" {
+      [32m+[0m[0m id       = (known after apply)
+      [32m+[0m[0m triggers = {
+          [32m+[0m[0m "web_instance_ids" = (known after apply)
+        }
+    }
+
+[1m  # module.prometheus.aws_iam_instance_profile.prometheus_profile[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_instance_profile" "prometheus_profile" {
+      [32m+[0m[0m arn         = (known after apply)
+      [32m+[0m[0m create_date = (known after apply)
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m name        = "prometheus_profile"
+      [32m+[0m[0m name_prefix = (known after apply)
+      [32m+[0m[0m path        = "/"
+      [32m+[0m[0m role        = "prometheus_role"
+      [32m+[0m[0m tags_all    = (known after apply)
+      [32m+[0m[0m unique_id   = (known after apply)
+    }
+
+[1m  # module.prometheus.aws_iam_role.prometheus_role[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_role" "prometheus_role" {
+      [32m+[0m[0m arn                   = (known after apply)
+      [32m+[0m[0m assume_role_policy    = jsonencode(
+            {
+              [32m+[0m[0m Statement = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m Action    = "sts:AssumeRole"
+                      [32m+[0m[0m Effect    = "Allow"
+                      [32m+[0m[0m Principal = {
+                          [32m+[0m[0m Service = "ec2.amazonaws.com"
+                        }
+                      [32m+[0m[0m Sid       = ""
+                    },
+                ]
+              [32m+[0m[0m Version   = "2012-10-17"
+            }
+        )
+      [32m+[0m[0m create_date           = (known after apply)
+      [32m+[0m[0m force_detach_policies = false
+      [32m+[0m[0m id                    = (known after apply)
+      [32m+[0m[0m managed_policy_arns   = (known after apply)
+      [32m+[0m[0m max_session_duration  = 3600
+      [32m+[0m[0m name                  = "prometheus_role"
+      [32m+[0m[0m name_prefix           = (known after apply)
+      [32m+[0m[0m path                  = "/"
+      [32m+[0m[0m tags_all              = (known after apply)
+      [32m+[0m[0m unique_id             = (known after apply)
+
+      [32m+[0m[0m inline_policy (known after apply)
+    }
+
+[1m  # module.prometheus.aws_iam_role_policy.prometheus_policy[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_role_policy" "prometheus_policy" {
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m name        = "prometheus_policy"
+      [32m+[0m[0m name_prefix = (known after apply)
+      [32m+[0m[0m policy      = jsonencode(
+            {
+              [32m+[0m[0m Statement = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m Action   = [
+                          [32m+[0m[0m "ec2:DescribeInstances",
+                          [32m+[0m[0m "ec2:DescribeTags",
+                        ]
+                      [32m+[0m[0m Effect   = "Allow"
+                      [32m+[0m[0m Resource = "*"
+                    },
+                ]
+              [32m+[0m[0m Version   = "2012-10-17"
+            }
+        )
+      [32m+[0m[0m role        = (known after apply)
+    }
+
+[1m  # module.prometheus.aws_instance.prometheus[0m will be created
+[0m  [32m+[0m[0m resource "aws_instance" "prometheus" {
+      [32m+[0m[0m ami                                  = "ami-0866a3c8686eaeeba"
+      [32m+[0m[0m arn                                  = (known after apply)
+      [32m+[0m[0m associate_public_ip_address          = (known after apply)
+      [32m+[0m[0m availability_zone                    = (known after apply)
+      [32m+[0m[0m cpu_core_count                       = (known after apply)
+      [32m+[0m[0m cpu_threads_per_core                 = (known after apply)
+      [32m+[0m[0m disable_api_stop                     = (known after apply)
+      [32m+[0m[0m disable_api_termination              = (known after apply)
+      [32m+[0m[0m ebs_optimized                        = (known after apply)
+      [32m+[0m[0m get_password_data                    = false
+      [32m+[0m[0m host_id                              = (known after apply)
+      [32m+[0m[0m host_resource_group_arn              = (known after apply)
+      [32m+[0m[0m iam_instance_profile                 = "prometheus_profile"
+      [32m+[0m[0m id                                   = (known after apply)
+      [32m+[0m[0m instance_initiated_shutdown_behavior = (known after apply)
+      [32m+[0m[0m instance_lifecycle                   = (known after apply)
+      [32m+[0m[0m instance_state                       = (known after apply)
+      [32m+[0m[0m instance_type                        = "t2.micro"
+      [32m+[0m[0m ipv6_address_count                   = (known after apply)
+      [32m+[0m[0m ipv6_addresses                       = (known after apply)
+      [32m+[0m[0m key_name                             = "Ansible Key"
+      [32m+[0m[0m monitoring                           = (known after apply)
+      [32m+[0m[0m outpost_arn                          = (known after apply)
+      [32m+[0m[0m password_data                        = (known after apply)
+      [32m+[0m[0m placement_group                      = (known after apply)
+      [32m+[0m[0m placement_partition_number           = (known after apply)
+      [32m+[0m[0m primary_network_interface_id         = (known after apply)
+      [32m+[0m[0m private_dns                          = (known after apply)
+      [32m+[0m[0m private_ip                           = (known after apply)
+      [32m+[0m[0m public_dns                           = (known after apply)
+      [32m+[0m[0m public_ip                            = (known after apply)
+      [32m+[0m[0m secondary_private_ips                = (known after apply)
+      [32m+[0m[0m security_groups                      = (known after apply)
+      [32m+[0m[0m source_dest_check                    = true
+      [32m+[0m[0m spot_instance_request_id             = (known after apply)
+      [32m+[0m[0m subnet_id                            = (known after apply)
+      [32m+[0m[0m tags                                 = {
+          [32m+[0m[0m "Environment" = "Development"
+          [32m+[0m[0m "Name"        = "My Prometheus Server"
+          [32m+[0m[0m "Role"        = "Prometheus Server"
+          [32m+[0m[0m "Service"     = "Prometheus"
+          [32m+[0m[0m "Team"        = "DevOps"
+        }
+      [32m+[0m[0m tags_all                             = {
+          [32m+[0m[0m "Environment" = "Development"
+          [32m+[0m[0m "Name"        = "My Prometheus Server"
+          [32m+[0m[0m "Role"        = "Prometheus Server"
+          [32m+[0m[0m "Service"     = "Prometheus"
+          [32m+[0m[0m "Team"        = "DevOps"
+        }
+      [32m+[0m[0m tenancy                              = (known after apply)
+      [32m+[0m[0m user_data                            = "8ea3b20ecf6c07e5ec72832b54f1b3e43f03d7f1"
+      [32m+[0m[0m user_data_base64                     = (known after apply)
+      [32m+[0m[0m user_data_replace_on_change          = true
+      [32m+[0m[0m vpc_security_group_ids               = (known after apply)
+
+      [32m+[0m[0m capacity_reservation_specification (known after apply)
+
+      [32m+[0m[0m cpu_options (known after apply)
+
+      [32m+[0m[0m ebs_block_device (known after apply)
+
+      [32m+[0m[0m enclave_options (known after apply)
+
+      [32m+[0m[0m ephemeral_block_device (known after apply)
+
+      [32m+[0m[0m instance_market_options (known after apply)
+
+      [32m+[0m[0m maintenance_options (known after apply)
+
+      [32m+[0m[0m metadata_options (known after apply)
+
+      [32m+[0m[0m network_interface (known after apply)
+
+      [32m+[0m[0m private_dns_name_options (known after apply)
+
+      [32m+[0m[0m root_block_device (known after apply)
+    }
+
+[1m  # module.prometheus.aws_security_group.prometheus_sg[0m will be created
+[0m  [32m+[0m[0m resource "aws_security_group" "prometheus_sg" {
+      [32m+[0m[0m arn                    = (known after apply)
+      [32m+[0m[0m description            = "Managed by Terraform"
+      [32m+[0m[0m egress                 = [
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m from_port        = 0
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "-1"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 0
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+        ]
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m ingress                = [
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m from_port        = 22
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "tcp"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 22
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m from_port        = 9090
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "tcp"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 9090
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+        ]
+      [32m+[0m[0m name                   = (known after apply)
+      [32m+[0m[0m name_prefix            = (known after apply)
+      [32m+[0m[0m owner_id               = (known after apply)
+      [32m+[0m[0m revoke_rules_on_delete = false
+      [32m+[0m[0m tags                   = {
+          [32m+[0m[0m "Name" = "Prometheus SG"
+        }
+      [32m+[0m[0m tags_all               = {
+          [32m+[0m[0m "Name" = "Prometheus SG"
+        }
+      [32m+[0m[0m vpc_id                 = (known after apply)
+    }
+
+[1mPlan:[0m 10 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m prometheus_public_ip = (known after apply)
+  [32m+[0m[0m web_public_ips       = [
+      [32m+[0m[0m (known after apply),
+      [32m+[0m[0m (known after apply),
+    ]
+[0m[1mmodule.aws_ec2.aws_key_pair.deployer: Creating...[0m[0m
+[0m[1mmodule.prometheus.aws_iam_role.prometheus_role: Creating...[0m[0m
+[0m[1mmodule.prometheus.aws_security_group.prometheus_sg: Creating...[0m[0m
+[0m[1mmodule.aws_ec2.aws_key_pair.deployer: Creation complete after 1s [id=Ansible Key][0m
+[0m[1mmodule.prometheus.aws_iam_role.prometheus_role: Creation complete after 1s [id=prometheus_role][0m
+[0m[1mmodule.prometheus.aws_iam_role_policy.prometheus_policy: Creating...[0m[0m
+[0m[1mmodule.prometheus.aws_iam_instance_profile.prometheus_profile: Creating...[0m[0m
+[0m[1mmodule.prometheus.aws_iam_role_policy.prometheus_policy: Creation complete after 1s [id=prometheus_role:prometheus_policy][0m
+[0m[1mmodule.prometheus.aws_security_group.prometheus_sg: Creation complete after 4s [id=sg-03001020ca3bbdec0][0m
+[0m[1mmodule.aws_ec2.aws_security_group.web_sg: Creating...[0m[0m
+[0m[1mmodule.aws_ec2.aws_security_group.web_sg: Creation complete after 4s [id=sg-0b484d5f41398ff22][0m
+[0m[1mmodule.aws_ec2.aws_instance.web[1]: Creating...[0m[0m
+[0m[1mmodule.aws_ec2.aws_instance.web[0]: Creating...[0m[0m
+[0m[1mmodule.prometheus.aws_iam_instance_profile.prometheus_profile: Creation complete after 7s [id=prometheus_profile][0m
+[0m[1mmodule.prometheus.aws_instance.prometheus: Creating...[0m[0m
+[0m[1mmodule.aws_ec2.aws_instance.web[0]: Still creating... [10s elapsed][0m[0m
+[0m[1mmodule.aws_ec2.aws_instance.web[1]: Still creating... [10s elapsed][0m[0m
+[0m[1mmodule.prometheus.aws_instance.prometheus: Still creating... [10s elapsed][0m[0m
+[0m[1mmodule.aws_ec2.aws_instance.web[0]: Creation complete after 14s [id=i-05dd2e9ed0828eeeb][0m
+[0m[1mmodule.aws_ec2.aws_instance.web[1]: Creation complete after 14s [id=i-0af755ff6c3f6e418][0m
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook: Creating...[0m[0m
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook: Provisioning with 'local-exec'...[0m[0m
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mExecuting: ["/bin/sh" "-c" "cd ansible && ansible-playbook playbook.yaml"]
+[0m[1mmodule.prometheus.aws_instance.prometheus: Creation complete after 15s [id=i-0c98e35c74254573a][0m
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook: Still creating... [10s elapsed][0m[0m
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook: Still creating... [20s elapsed][0m[0m
+
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mPLAY [Setup Apache2 and Prometheus Node Exporter on web servers] ***************
+
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mTASK [apache2 : Install apache2] ***********************************************
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook: Still creating... [30s elapsed][0m[0m
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook: Still creating... [40s elapsed][0m[0m
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook: Still creating... [50s elapsed][0m[0m
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0m[WARNING]: Platform linux on host My Web Server 2 is using the discovered
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mPython interpreter at /usr/bin/python3.12, but future installation of another
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mPython interpreter could change the meaning of that path. See
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mhttps://docs.ansible.com/ansible-
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mcore/2.17/reference_appendices/interpreter_discovery.html for more information.
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0m[WARNING]: Platform linux on host My Web Server 1 is using the discovered
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mPython interpreter at /usr/bin/python3.12, but future installation of another
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mPython interpreter could change the meaning of that path. See
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mhttps://docs.ansible.com/ansible-
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mcore/2.17/reference_appendices/interpreter_discovery.html for more information.
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mchanged: [My Web Server 2]
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mchanged: [My Web Server 1]
+
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mTASK [apache2 : Start and enable apache2 service] ******************************
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook: Still creating... [1m0s elapsed][0m[0m
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mok: [My Web Server 2]
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mok: [My Web Server 1]
+
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mTASK [node_exporter : Create prometheus user] **********************************
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mchanged: [My Web Server 1]
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mchanged: [My Web Server 2]
+
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mTASK [node_exporter : Copy SSH configuration to prometheus user] ***************
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook: Still creating... [1m10s elapsed][0m[0m
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mchanged: [My Web Server 2]
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mchanged: [My Web Server 1]
+
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mTASK [node_exporter : Create .local/bin directory for prometheus user] *********
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mchanged: [My Web Server 1]
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mchanged: [My Web Server 2]
+
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mTASK [node_exporter : Download and extract node_exporter binary] ***************
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook: Still creating... [1m20s elapsed][0m[0m
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mchanged: [My Web Server 2]
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mchanged: [My Web Server 1]
+
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mTASK [node_exporter : Create .config/systemd/user/ directory for prometheus user] ***
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mchanged: [My Web Server 1]
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mchanged: [My Web Server 2]
+
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mTASK [node_exporter : Deploy node_exporter service file from template] *********
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook: Still creating... [1m30s elapsed][0m[0m
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mchanged: [My Web Server 1]
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mchanged: [My Web Server 2]
+
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mTASK [node_exporter : Enable linger for prometheus user] ***********************
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mok: [My Web Server 1]
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mok: [My Web Server 2]
+
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mTASK [node_exporter : Get UID of prometheus user] ******************************
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook: Still creating... [1m40s elapsed][0m[0m
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mok: [My Web Server 1]
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mok: [My Web Server 2]
+
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mTASK [node_exporter : Start and enable node_exporter service for prometheus user] ***
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook: Still creating... [1m50s elapsed][0m[0m
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mchanged: [My Web Server 1]
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mchanged: [My Web Server 2]
+
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mPLAY RECAP *********************************************************************
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mMy Web Server 1            : ok=11   changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook (local-exec):[0m [0mMy Web Server 2            : ok=11   changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+[0m[1mmodule.aws_ec2.null_resource.ansible_playbook: Creation complete after 1m51s [id=1918115155947930451][0m
+[0m[1m[32m
+Apply complete! Resources: 10 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0mprometheus_public_ip = "52.90.214.150"
+web_public_ips = [
+  "18.234.137.41",
+  "54.159.106.13",
+]
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

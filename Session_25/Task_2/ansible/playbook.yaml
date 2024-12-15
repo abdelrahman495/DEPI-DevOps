@@ -1,0 +1,8 @@
+---
+- name: Setup Apache2 and Prometheus Node Exporter on web servers
+  hosts: web_servers
+  become: true
+  gather_facts: false
+  roles:
+    - apache2
+    - node_exporter
