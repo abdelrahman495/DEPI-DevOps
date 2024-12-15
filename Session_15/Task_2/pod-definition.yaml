@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: my-app
+  name: my-app
+spec:
+  containers:
+  - env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: my_p@ss123
+    image: mysql:lts
+    name: mysql-db-container
+    ports:
+    - containerPort: 3306
+    resources: {}
+  - name: flask-app-container
+    image: abdelrahman495/simple-flask-app:0.1
+    ports:
+    - containerPort: 5000
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
