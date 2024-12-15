@@ -1,0 +1,36 @@
+---
+- name: Remote servers management
+  hosts: remote_servers
+  become: true
+  tasks:
+    - name: Copy os-release file
+      ansible.builtin.copy:
+        src: /etc/os-release
+        dest: /tmp/
+        remote_src: true
+        mode: "644"
+    - name: Copy users.csv file
+      ansible.builtin.copy:
+        src: users.csv
+        dest: /tmp/
+        mode: "644"
+    - name: Read a list of users from the CSV file
+      community.general.read_csv:
+        path: /tmp/users.csv
+      register: users
+    - name: Create the list of users
+      ansible.builtin.user:
+        name: "{{ item.username }}"
+        uid: "{{ item.user_id }}"
+        shell: "{{ item.user_shell }}"
+      loop: "{{ users.list }}"
+      when: users.list is defined
+    - name: Remove the CSV file
+      ansible.builtin.file:
+        path: /tmp/users.csv
+        state: absent
+    - name: Use template distribution_version file
+      ansible.builtin.template:
+        src: distribution_version.txt.j2
+        dest: "/home/{{ ansible_user }}/distribution_version.txt"
+        mode: "644"

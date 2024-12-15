@@ -1,0 +1,5 @@
+username,user_id,user_shell
+alice,1001,/bin/bash
+bob,1002,/bin/sh
+charlie,1003,/sbin/nologin
+
