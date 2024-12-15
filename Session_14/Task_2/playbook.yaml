@@ -1,0 +1,5 @@
+- name: Install and start mysql using a role
+  hosts: host1
+  become: true
+  roles:
+    - mysql
