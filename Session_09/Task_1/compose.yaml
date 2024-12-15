@@ -1,0 +1,7 @@
+services:
+  flask:
+    container_name: my-flask-app
+    image: abdelrahman495/simple-flask-app:0.1
+    ports:
+      - "8080:5000"
+
