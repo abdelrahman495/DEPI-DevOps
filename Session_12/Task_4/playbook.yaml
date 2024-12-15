@@ -1,0 +1,26 @@
+---
+- name: Setup and configure apache2 on Ubuntu servers
+  hosts: web_servers
+  become: true
+  tasks:
+    - name: Install apache2
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+        update_cache: true
+    - name: Start and enable apache2 service
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: true
+    - name: Configure apache2 to use port 8081
+      ansible.builtin.lineinfile:
+        path: /etc/apache2/ports.conf
+        regexp: "^Listen"
+        line: Listen 8081
+      notify: Restart apache2
+  handlers:
+    - name: Restart apache2
+      ansible.builtin.service:
+        name: apache2
+        state: restarted
