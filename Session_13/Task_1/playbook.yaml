@@ -1,0 +1,10 @@
+---
+- name: Display FQDN of a server
+  hosts: host1
+  become: true
+  tasks:
+    - name: Use template html file
+      ansible.builtin.template:
+        src: index.html.j2
+        dest: /var/www/html/index.html
+        mode: "644"
