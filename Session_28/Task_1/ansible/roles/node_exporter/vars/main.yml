@@ -1,0 +1,7 @@
+---
+# vars file for node_exporter
+service_description: "Prometheus Node Exporter"
+service_user: "prometheus"
+service_executable: "node_exporter"
+service_cpu: "50%"
+service_memory: "200M"

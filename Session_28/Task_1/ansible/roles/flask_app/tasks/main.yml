@@ -1,0 +1,53 @@
+---
+# tasks file for flask_app
+- name: Checkout flask app github repo
+  ansible.builtin.git:
+    repo: "https://github.com/abdelrahman495/simple_flask_app"
+    dest: /home/ubuntu/simple_flask_app/
+    version: main
+  become: false
+
+- name: Ensure venv is installed
+  ansible.builtin.apt:
+    name:
+      - python3-venv
+    state: present
+    update_cache: true
+
+- name: Install flask app dependencies
+  ansible.builtin.pip:
+    requirements: "/home/ubuntu/simple_flask_app/requirements.txt"
+    virtualenv: /home/ubuntu/simple_flask_app/venv
+    virtualenv_command: python3 -m venv
+  become: false
+
+- name: Create .config/systemd/user/ directory
+  ansible.builtin.file:
+    path: /home/ubuntu/.config/systemd/user/
+    state: directory
+    mode: "0775"
+  become: false
+
+- name: Deploy simple_flask_app service file from template
+  ansible.builtin.template:
+    src: service_name.service.j2
+    dest: /home/ubuntu/.config/systemd/user/simple_flask_app.service
+    mode: "0664"
+  become: false
+
+- name: Enable linger for ubuntu user
+  ansible.builtin.command:
+    cmd: loginctl enable-linger ubuntu
+  register: loginctl_output
+  changed_when: loginctl_output.rc != 0
+
+- name: Start and enable simple_flask_app service for ubuntu user
+  ansible.builtin.systemd_service:
+    name: simple_flask_app.service
+    state: started
+    enabled: true
+    daemon_reload: true
+    scope: user
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ ansible_user_uid }}"
+  become: false

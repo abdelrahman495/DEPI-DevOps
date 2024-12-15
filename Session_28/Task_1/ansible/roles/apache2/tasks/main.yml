@@ -1,0 +1,13 @@
+---
+# tasks file for apache2
+- name: Install apache2
+  ansible.builtin.apt:
+    name: apache2
+    state: present
+    update_cache: true
+
+- name: Start and enable apache2 service
+  ansible.builtin.service:
+    name: apache2
+    state: started
+    enabled: true

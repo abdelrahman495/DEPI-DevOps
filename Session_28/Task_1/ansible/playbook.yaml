@@ -1,0 +1,8 @@
+---
+- name: Setup Apache2, Prometheus Node Exporter, and Simple Flask App on web servers
+  hosts: web_servers
+  become: true
+  roles:
+    - apache2
+    - node_exporter
+    - flask_app
