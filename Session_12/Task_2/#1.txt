@@ -1,0 +1,158 @@
+Started by user Abdelrahman Ali
+Obtained Jenkinsfile-3 from git https://github.com/abdelrahman495/jenkins-example-docker
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/dynamic-agent-pipeline
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/abdelrahman495/jenkins-example-docker
+ > git init /var/jenkins_home/workspace/dynamic-agent-pipeline # timeout=10
+Fetching upstream changes from https://github.com/abdelrahman495/jenkins-example-docker
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+ > git fetch --tags --force --progress -- https://github.com/abdelrahman495/jenkins-example-docker +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/abdelrahman495/jenkins-example-docker # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 78fdda11ff72f9e3820f6c9dbd5741d9af1d590e (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 78fdda11ff72f9e3820f6c9dbd5741d9af1d590e # timeout=10
+Commit message: "final"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Agent Setup)
+[Pipeline] isUnix
+[Pipeline] readFile
+[Pipeline] sh
++ docker build -t fae2dd05d5191384187a0d5a62228aca90eb864e -f Dockerfile .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 81B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:16-alpine
+#2 DONE 2.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/2] FROM docker.io/library/node:16-alpine@sha256:a1f9d027912b58a7c75be7716c97cfbc6d3099f3a97ed84aa490be9dee20e787
+#4 resolve docker.io/library/node:16-alpine@sha256:a1f9d027912b58a7c75be7716c97cfbc6d3099f3a97ed84aa490be9dee20e787 0.0s done
+#4 sha256:a1f9d027912b58a7c75be7716c97cfbc6d3099f3a97ed84aa490be9dee20e787 1.43kB / 1.43kB done
+#4 sha256:72e89a86be58c922ed7b1475e5e6f151537676470695dd106521738b060e139d 1.16kB / 1.16kB done
+#4 sha256:2573171e0124bb95d14d128728a52a97bb917ef45d7c4fa8cfe76bc44aa78b73 6.73kB / 6.73kB done
+#4 sha256:7264a8db6415046d36d16ba98b79778e18accee6ffa71850405994cffa9be7de 0B / 3.40MB 0.1s
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 0B / 36.63MB 0.1s
+#4 sha256:93b3025fe10392717d06ec0d012a9ffa2039d766a322aac899c6831dd93382c2 0B / 2.34MB 0.1s
+#4 sha256:7264a8db6415046d36d16ba98b79778e18accee6ffa71850405994cffa9be7de 1.05MB / 3.40MB 0.7s
+#4 sha256:7264a8db6415046d36d16ba98b79778e18accee6ffa71850405994cffa9be7de 2.10MB / 3.40MB 1.3s
+#4 sha256:7264a8db6415046d36d16ba98b79778e18accee6ffa71850405994cffa9be7de 3.40MB / 3.40MB 1.5s
+#4 sha256:7264a8db6415046d36d16ba98b79778e18accee6ffa71850405994cffa9be7de 3.40MB / 3.40MB 1.6s done
+#4 extracting sha256:7264a8db6415046d36d16ba98b79778e18accee6ffa71850405994cffa9be7de
+#4 sha256:d9059661ce70092af66d2773666584fc8addcb78a2be63f720022f4875577ea9 0B / 452B 1.8s
+#4 extracting sha256:7264a8db6415046d36d16ba98b79778e18accee6ffa71850405994cffa9be7de 0.3s done
+#4 sha256:d9059661ce70092af66d2773666584fc8addcb78a2be63f720022f4875577ea9 452B / 452B 2.4s done
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 2.10MB / 36.63MB 2.9s
+#4 sha256:93b3025fe10392717d06ec0d012a9ffa2039d766a322aac899c6831dd93382c2 1.05MB / 2.34MB 2.9s
+#4 sha256:93b3025fe10392717d06ec0d012a9ffa2039d766a322aac899c6831dd93382c2 2.34MB / 2.34MB 3.3s done
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 4.19MB / 36.63MB 3.5s
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 6.29MB / 36.63MB 4.2s
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 8.39MB / 36.63MB 4.6s
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 10.49MB / 36.63MB 5.3s
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 12.58MB / 36.63MB 5.8s
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 14.68MB / 36.63MB 6.5s
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 16.78MB / 36.63MB 7.2s
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 18.87MB / 36.63MB 7.7s
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 20.97MB / 36.63MB 8.3s
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 23.07MB / 36.63MB 8.9s
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 25.17MB / 36.63MB 9.7s
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 27.26MB / 36.63MB 10.3s
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 29.36MB / 36.63MB 10.8s
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 31.46MB / 36.63MB 11.7s
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 33.55MB / 36.63MB 12.4s
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 35.65MB / 36.63MB 13.0s
+#4 sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 36.63MB / 36.63MB 14.1s done
+#4 extracting sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 0.1s
+#4 extracting sha256:eee371b9ce3ffdbb8aa703b9a14d318801ddc3468f096bb6cfeabbeb715147f9 1.8s done
+#4 extracting sha256:93b3025fe10392717d06ec0d012a9ffa2039d766a322aac899c6831dd93382c2
+#4 extracting sha256:93b3025fe10392717d06ec0d012a9ffa2039d766a322aac899c6831dd93382c2 0.1s done
+#4 extracting sha256:d9059661ce70092af66d2773666584fc8addcb78a2be63f720022f4875577ea9
+#4 extracting sha256:d9059661ce70092af66d2773666584fc8addcb78a2be63f720022f4875577ea9 done
+#4 DONE 16.5s
+
+#5 [2/2] RUN apk add -U git curl
+#5 0.485 fetch https://dl-cdn.alpinelinux.org/alpine/v3.18/main/x86_64/APKINDEX.tar.gz
+#5 1.201 fetch https://dl-cdn.alpinelinux.org/alpine/v3.18/community/x86_64/APKINDEX.tar.gz
+#5 2.126 (1/10) Installing ca-certificates (20240226-r0)
+#5 2.268 (2/10) Installing brotli-libs (1.0.9-r14)
+#5 2.428 (3/10) Installing libunistring (1.1-r1)
+#5 2.686 (4/10) Installing libidn2 (2.3.4-r1)
+#5 2.770 (5/10) Installing nghttp2-libs (1.57.0-r0)
+#5 2.861 (6/10) Installing libcurl (8.9.1-r1)
+#5 3.068 (7/10) Installing curl (8.9.1-r1)
+#5 3.201 (8/10) Installing libexpat (2.6.4-r0)
+#5 3.288 (9/10) Installing pcre2 (10.42-r1)
+#5 3.522 (10/10) Installing git (2.40.3-r0)
+#5 4.620 Executing busybox-1.36.1-r2.trigger
+#5 4.632 Executing ca-certificates-20240226-r0.trigger
+#5 4.702 OK: 21 MiB in 27 packages
+#5 DONE 10.2s
+
+#6 exporting to image
+#6 exporting layers
+#6 exporting layers 0.2s done
+#6 writing image sha256:54d28e0f27509a24fe3689dc4909de5ced911ce01e87a1a0970e86276ed377e1 done
+#6 naming to docker.io/library/fae2dd05d5191384187a0d5a62228aca90eb864e 0.0s done
+#6 DONE 0.2s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker inspect -f . fae2dd05d5191384187a0d5a62228aca90eb864e
+.
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+Jenkins seems to be running inside container 55d690e68b7ce27f7dce7941a83a3a46323e53c64b9e100365a4fe9cc5b6a547
+$ docker run -t -d -u 1000:1000 -w /var/jenkins_home/workspace/dynamic-agent-pipeline --volumes-from 55d690e68b7ce27f7dce7941a83a3a46323e53c64b9e100365a4fe9cc5b6a547 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** fae2dd05d5191384187a0d5a62228aca90eb864e cat
+$ docker top 0fe131faff721459be2ac10dbe06ffba2cbd196f9733ac264b318131409f3a0d -eo pid,comm
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] sh
++ node --version
+v16.20.2
++ git --version
+git version 2.40.3
++ curl --version
+curl 8.9.1 (x86_64-alpine-linux-musl) libcurl/8.9.1 OpenSSL/3.1.2 zlib/1.2.13 brotli/1.0.9 libidn2/2.3.4 nghttp2/1.57.0
+Release-Date: 2024-07-31
+Protocols: dict file ftp ftps gopher gophers http https imap imaps ipfs ipns mqtt pop3 pop3s rtsp smb smbs smtp smtps telnet tftp ws wss
+Features: alt-svc AsynchDNS brotli HSTS HTTP2 HTTPS-proxy IDN IPv6 Largefile libz NTLM SSL threadsafe TLS-SRP UnixSockets
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+$ docker stop --time=1 0fe131faff721459be2ac10dbe06ffba2cbd196f9733ac264b318131409f3a0d
+$ docker rm -f --volumes 0fe131faff721459be2ac10dbe06ffba2cbd196f9733ac264b318131409f3a0d
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
