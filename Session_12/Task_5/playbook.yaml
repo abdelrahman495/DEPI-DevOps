@@ -1,0 +1,38 @@
+---
+- name: Backup Jenkins Server
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Stop Jenkins container
+      community.docker.docker_container:
+        name: jenkins-docker
+        state: stopped
+      register: stop_jenkins
+
+    - name: Backup Jenkins home directory
+      ansible.builtin.command: >
+        docker run --rm -v jenkins_home:/var/jenkins_home -v /tmp:/backup
+        busybox tar czf /backup/jenkins_home_backup.tar.gz -C /var jenkins_home
+      async: 600
+      poll: 0
+      register: backup_task
+      changed_when: false
+
+    - name: Wait for backup to complete
+      ansible.builtin.async_status:
+        jid: "{{ backup_task.ansible_job_id }}"
+      register: backup_result
+      until: backup_result.finished
+      retries: 60
+      delay: 10
+
+    - name: Notify if backup has failed
+      ansible.builtin.fail:
+        msg: "Jenkins backup failed!"
+      when: backup_result.rc != 0
+
+    - name: Restart Jenkins container
+      community.docker.docker_container:
+        name: jenkins-docker
+        state: started
+      when: stop_jenkins is not failed
