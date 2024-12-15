@@ -1,0 +1,7 @@
+- name: Install and configure apache2 using a role
+  hosts: host1
+  become: true
+  vars_files:
+    - vars/main.yaml
+  roles:
+    - geerlingguy.apache
