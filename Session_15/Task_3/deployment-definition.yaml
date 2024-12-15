@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: my-app-deployment
+  name: my-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      run: my-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: my-app
+      name: my-app
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: my_p@ss123
+        image: mysql:lts
+        name: mysql-db-container
+        ports:
+        - containerPort: 3306
+        resources: {}
+      - name: flask-app-container
+        image: abdelrahman495/simple-flask-app:0.1
+        ports:
+        - containerPort: 5000
+status: {}
