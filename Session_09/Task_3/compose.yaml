@@ -1,0 +1,44 @@
+services:
+  frontend:
+    container_name: httpd-container
+    image: httpd:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - type: bind
+        source: ./frontend_dir/index.html
+        target: /usr/local/apache2/htdocs/index.html
+        read_only: true
+    networks:
+      - frontend-nw
+    depends_on:
+      - backend
+
+  backend:
+    container_name: flask-container
+    image: abdelrahman495/simple-flask-app:0.1
+    ports:
+      - "8081:5000"
+    networks:
+      - frontend-nw
+      - backend-nw
+    depends_on:
+      - db
+
+  db:
+    container_name: mariadb-container
+    image: mariadb:latest
+    environment:
+      - MARIADB_ROOT_PASSWORD=my_p@ss123
+    volumes:
+      - type: bind
+        source: ./db_dir
+        target: /var/lib/mysql
+    networks:
+      - backend-nw
+
+
+networks:
+  frontend-nw:
+  backend-nw:
+
