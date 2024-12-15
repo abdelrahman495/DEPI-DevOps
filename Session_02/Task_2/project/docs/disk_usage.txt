@@ -1,0 +1,11 @@
+4.0K	./bin
+4.0K	./logs
+8.0K	./docs
+8.0K	./src
+28K	.
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs           795M  1.7M  793M   1% /run
+/dev/sda2       196G   21G  166G  12% /
+tmpfs           3.9G   40M  3.9G   1% /dev/shm
+tmpfs           5.0M  8.0K  5.0M   1% /run/lock
+tmpfs           795M  128K  795M   1% /run/user/1000
