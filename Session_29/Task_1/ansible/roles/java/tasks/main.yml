@@ -1,0 +1,20 @@
+---
+# tasks file for jenkins_agent
+- name: Install fontconfig and openjdk-17-jre
+  ansible.builtin.apt:
+    name:
+      - fontconfig
+      - openjdk-17-jre
+    state: present
+    update_cache: true
+
+- name: Verify Java installation
+  ansible.builtin.command: java -version
+  register: java_version_output
+  ignore_errors: true
+  changed_when: java_version_output.rc != 0
+
+- name: Display Java version
+  ansible.builtin.debug:
+    msg: "{{ java_version_output.stdout }}"
+  when: java_version_output is defined

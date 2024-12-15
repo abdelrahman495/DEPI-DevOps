@@ -1,0 +1,7 @@
+---
+- name: Setup Java on jenkins agent servers
+  hosts: jenkins_agent_servers
+  become: true
+  gather_facts: false
+  roles:
+    - java

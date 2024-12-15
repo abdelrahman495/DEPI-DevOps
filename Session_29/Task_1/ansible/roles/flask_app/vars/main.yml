@@ -1,0 +1,7 @@
+---
+# vars file for flask_app
+service_description: "Simple Flask App"
+working_dir: /home/ubuntu/simple_flask_app/
+exec_start: /home/ubuntu/simple_flask_app/venv/bin/python3 /home/ubuntu/simple_flask_app/app.py
+service_cpu: "50%"
+service_memory: "200M"

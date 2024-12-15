@@ -1,0 +1,13 @@
+[Unit]
+Description={{ service_description }}
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/home/{{ service_user }}/.local/bin/{{ service_executable }}
+Restart=always
+CPUQuota={{ service_cpu }}
+MemoryMax={{ service_memory }}
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,17 @@
+plugin: amazon.aws.aws_ec2
+access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
+secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
+region: "{{ lookup('env', 'AWS_REGION') }}"
+filters:
+  instance-state-name: running
+hostnames:
+  - name: tag:Name
+keyed_groups:
+  - prefix: tag
+    key: tags
+groups:
+  web_servers: tags.Role == 'Web Server'
+  prometheus_servers: tags.Role == 'Prometheus Server'
+  jenkins_agent_servers: tags.Role == 'Jenkins Agent Server'
+compose:
+  ansible_host: public_ip_address
